@@ -4,11 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-class MainTest {
+public class MainIT {
 
     @Test
     void it_should() {
-        System.out.println("-> UNIT <-");
+        System.out.println("-> INTEGRATION <-");
         assertThat(2).isEqualTo(2);
     }
+
 }

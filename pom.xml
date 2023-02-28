@@ -24,6 +24,7 @@
   </properties>
 
   <dependencies>
+    <!-- Runtime Dependencies -->
     <dependency>
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-core</artifactId>
@@ -49,6 +50,7 @@
       <artifactId>angus-mail</artifactId>
       <version>2.0.1</version>
     </dependency>
+    <!-- Test Dependencies -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -94,32 +96,24 @@
           </compilerArgs>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.1</version>
+        <version>3.0.0-M9</version>
         <configuration>
           <includes>
             <include>**/*Test.java</include>
-            <include>**/*Should.java</include>
           </includes>
           <excludes>
             <exclude>**/IT*.java</exclude>
           </excludes>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>1.3.2</version>
-          </dependency>
-        </dependencies>
       </plugin>
-<!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.19.1</version>
+        <version>3.0.0-M9</version>
         <executions>
           <execution>
             <id>integration-tests</id>
@@ -130,64 +124,77 @@
             <configuration>
               <skipTests>false</skipTests>
               <includes>
-                <include>**/IT*.java</include>
+                <include>**/*IT.java</include>
               </includes>
-              <excludes>
-                <exclude>**/APITestSuit*.java</exclude>
-              </excludes>
             </configuration>
-
           </execution>
         </executions>
       </plugin>
--->
 
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-shade-plugin</artifactId>-->
-<!--        <version>2.3</version>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <phase>package</phase>-->
-<!--            <goals>-->
-<!--              <goal>shade</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <finalName>openchat</finalName>-->
-<!--              <transformers>-->
-<!--                &lt;!&ndash; add Main-Class to manifest file &ndash;&gt;-->
-<!--                <transformer-->
-<!--                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-<!--                  <mainClass>org.openchat.OpenChatLauncher</mainClass>-->
-<!--                </transformer>-->
-<!--              </transformers>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.4.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>emapp</finalName>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>module-info.class</exclude>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                    <exclude>META-INF/LICENSE</exclude>
+                    <exclude>META-INF/LICENSE.md</exclude>
+                    <exclude>META-INF/NOTICE.txt</exclude>
+                    <exclude>META-INF/NOTICE.md</exclude>
+                    <exclude>META-INF/MANIFEST.MF</exclude>
+                    <exclude>META-INF/versions/9/module-info.class</exclude>
+                    <exclude>about.html</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+              <transformers>
+                <!-- add Main-Class to manifest file -->
+                <transformer
+                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>application.Bootstrap</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
-<!--  <profiles>-->
-<!--    <profile>-->
-<!--      <id>dev</id>-->
-<!--      <activation>-->
-<!--        <activeByDefault>true</activeByDefault>-->
-<!--      </activation>-->
-<!--      <properties>-->
-<!--        <build.profile.id>dev</build.profile.id>-->
-<!--        <skip.integration.tests>true</skip.integration.tests>-->
-<!--        <skip.unit.tests>false</skip.unit.tests>-->
-<!--      </properties>-->
-<!--    </profile>-->
-<!--    <profile>-->
-<!--      <id>integration-test</id>-->
-<!--      <properties>-->
-<!--        <build.profile.id>integration-test</build.profile.id>-->
-<!--        <skip.integration.tests>false</skip.integration.tests>-->
-<!--        <skip.unit.tests>true</skip.unit.tests>-->
-<!--      </properties>-->
-<!--    </profile>-->
-<!--  </profiles>-->
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <build.profile.id>dev</build.profile.id>
+        <skip.integration.tests>true</skip.integration.tests>
+        <skip.unit.tests>false</skip.unit.tests>
+      </properties>
+    </profile>
+    <profile>
+      <id>integration-test</id>
+      <properties>
+        <build.profile.id>integration-test</build.profile.id>
+        <skip.integration.tests>false</skip.integration.tests>
+        <skip.unit.tests>true</skip.unit.tests>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>
