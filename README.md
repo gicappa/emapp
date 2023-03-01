@@ -17,3 +17,9 @@ While to launch only the integration tests:
 ```shell
 $ mvn clean install -Pintegration-tests-only
 ```
+
+## Running the application
+To run the application, you need to build it using maven and then to launch the command:
+```shell
+$ java -jar emapp.jar
+```
