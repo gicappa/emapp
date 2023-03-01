@@ -22,8 +22,8 @@ public class Emapp implements Runnable {
     public void run() {
         post("/users", (request, response) -> {
             try {
-                CandidateUser candidateUser = mapper.toCandidateUser(request.body());
-                User user = createUser(candidateUser);
+                var candidateUser = mapper.toCandidateUser(request.body());
+                var user = createUser(candidateUser);
                 response.status(201);
                 return mapper.fromUser(user);
             } catch (EmappException ee) {

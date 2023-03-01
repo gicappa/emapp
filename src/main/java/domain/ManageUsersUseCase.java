@@ -11,7 +11,7 @@ public class ManageUsersUseCase {
     }
 
     public User createUser(CandidateUser candidateUser) {
-        User user = usersRepo.createUser(candidateUser);
+        var user = usersRepo.createUser(candidateUser);
         emailService.sendVerificationEmailTo(user);
         return user;
     }

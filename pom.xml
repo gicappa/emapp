@@ -25,6 +25,16 @@
     <skip.unit.tests>false</skip.unit.tests>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.15</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <!-- Runtime Dependencies -->
     <dependency>
@@ -82,6 +92,11 @@
       <artifactId>mockito-junit-jupiter</artifactId>
       <version>${mockito-junit-jupiter.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${restassured.version}</version>
     </dependency>
   </dependencies>
   <build>
@@ -185,15 +200,7 @@
                   <artifact>*:*</artifact>
                   <excludes>
                     <exclude>module-info.class</exclude>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                    <exclude>META-INF/LICENSE</exclude>
-                    <exclude>META-INF/LICENSE.md</exclude>
-                    <exclude>META-INF/NOTICE.txt</exclude>
-                    <exclude>META-INF/NOTICE.md</exclude>
-                    <exclude>META-INF/MANIFEST.MF</exclude>
-                    <exclude>META-INF/versions/9/module-info.class</exclude>
+                    <exclude>META-INF/**</exclude>
                     <exclude>about.html</exclude>
                   </excludes>
                 </filter>
