@@ -135,6 +135,40 @@
       </plugin>
 
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>pre-integration-test</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${basedir}/src/main/config/start-server.sh</executable>
+              <arguments>
+                <argument>application.Bootstrap</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>post-integration-test</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${basedir}/src/main/config/stop-server.sh</executable>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>application.Bootstrap</mainClass>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.4.1</version>
@@ -196,4 +230,5 @@
       </properties>
     </profile>
   </profiles>
+
 </project>

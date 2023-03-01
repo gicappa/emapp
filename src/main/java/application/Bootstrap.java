@@ -2,7 +2,7 @@ package application;
 
 import static spark.Spark.initExceptionHandler;
 
-class Bootstrap implements Runnable {
+public class Bootstrap implements Runnable {
 
     private Emapp emapp;
 
